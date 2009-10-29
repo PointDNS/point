@@ -1,6 +1,7 @@
 #PointHQ API Library
 
-This library provides easy access to point zone & record management.
+This library provides easy access to point zone & record management. For information about the 
+services offered on Point see [the website](http://pointhq.com)
 
 ##Setup & Installation
 
