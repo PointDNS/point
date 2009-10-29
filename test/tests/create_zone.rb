@@ -9,7 +9,7 @@ class CreateZone < Test::Unit::TestCase
   end
   
   def test_successful_zone_creation
-    assert_equal true, @zone.save
+    assert @zone.save
     assert_equal nil, @zone.errors
     assert_instance_of Fixnum, @zone.id
     ## check it exists...
@@ -20,13 +20,13 @@ class CreateZone < Test::Unit::TestCase
   def test_failed_zone_creation
     @zone.name = nil
     assert_equal false, @zone.save
-    assert_equal true, @zone.errors.keys.include?('name')
+    assert @zone.errors.keys.include?('name')
   end
   
   def test_failed_zone_creation_on_ttl_size
     @zone.ttl = 1
     assert_equal false, @zone.save
-    assert_equal true, @zone.errors.keys.include?('ttl')
+    assert @zone.errors.keys.include?('ttl')
   end
   
   def teardown

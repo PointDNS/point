@@ -24,14 +24,14 @@ module Point
       def find(type, params = {})
         case type
         when :all then find_all(params)
-        when Integer then find_single(type)
+        when Integer then find_single(type, params)
         end
       end
       
       ## Find all objects and return an array of objects with the attributes set.
       def find_all(params)
-        JSON.parse(Request.new(collection_path).make.output).map do |o|
-          create_object(o[class_name.downcase])
+        JSON.parse(Request.new(collection_path(params)).make.output).map do |o|
+          create_object(o[class_name.downcase], params)
         end
       end
       
@@ -39,7 +39,7 @@ module Point
       def find_single(id, params = {})
         o = JSON.parse(Request.new(member_path(id, params)).make.output)
         if o[class_name.downcase]
-          create_object(o[class_name.downcase])
+          create_object(o[class_name.downcase], params)
         else
           raise Point::Errors::NotFound, "Record not found"
         end
@@ -53,7 +53,7 @@ module Point
       ## Return the collection path for this model. Very lazy pluralizion here
       ## at the moment, nothing in Point needs to be pluralized with anything
       ## other than just adding an 's'.
-      def collection_path
+      def collection_path(params = {})
         class_name.downcase + 's'
       end
       
@@ -64,26 +64,28 @@ module Point
       
       ## Return the point class name
       def class_name
-        self.name.to_s.split('::').last
+        self.name.to_s.split('::').last.downcase
       end
       
       private
             
       ## Create a new object with the specified attributes and getting and ID. 
       ## Returns the newly created object
-      def create_object(attributes)
+      def create_object(attributes, objects = [])
         o = self.new
         o.attributes = attributes
         o.id         = attributes['id']
+        for key, object in objects.select{|k,v| v.kind_of?(Point::Base)}
+          o.attributes[key.to_s] = object
+        end
         o
       end
-      
     end
     
     ## Run a post on the member path. Returns the ouput from the post, false if a conflict or raises
     ## a Point::Error. Optionally, pass a second 'data' parameter to send data to the post action.
     def post(action, data = nil)
-      path = self.class.member_path(self.id) + "/" + action.to_s
+      path = self.class.member_path(self.id, default_params) + "/" + action.to_s
       request = Request.new(path, :post)
       request.data = data
       request.make
@@ -92,7 +94,7 @@ module Point
     ## Delete this record from the remote service. Returns true or false depending on the success
     ## status of the destruction.
     def destroy
-      Request.new(self.class.member_path(self.id), :delete).make.success?
+      Request.new(self.class.member_path(self.id, default_params), :delete).make.success?
     end
     
     def new_record?
@@ -104,10 +106,10 @@ module Point
     end
 
     def create
-      request = Request.new(self.class.collection_path, :post)
-      request.data = {self.class.class_name.downcase.to_sym => attributes}
+      request = Request.new(self.class.collection_path(default_params), :post)
+      request.data = {self.class.class_name.downcase.to_sym => attributes_to_post}
       if request.make && request.success?
-        new_record = JSON.parse(request.output)['zone']
+        new_record = JSON.parse(request.output)[self.class.class_name]
         self.id = new_record['id']
         true
       else
@@ -120,8 +122,8 @@ module Point
     ## other false if not. If not saved successfully, the errors hash will be updated with an array
     ## of all errors with the submission.    
     def update
-      request = Request.new(self.class.member_path(self.id), :put)
-      request.data = {self.class.class_name.downcase.to_sym => attributes}
+      request = Request.new(self.class.member_path(self.id, default_params), :put)
+      request.data = {self.class.class_name.downcase.to_sym => attributes_to_post}
       if request.make && request.success?
         true
       else
@@ -137,6 +139,19 @@ module Point
       self.errors = Hash.new
       JSON.parse(json).inject(self.errors) do |r, e|
         r[e.first] = e.last
+        r
+      end
+    end
+    
+    ## An array of params which should always be sent with this instances requests
+    def default_params
+      Hash.new
+    end
+    
+    ## Attributes which can be passed for update & creation
+    def attributes_to_post
+      self.attributes.inject(Hash.new) do |r,(key,value)|
+        r[key] = value if value.is_a?(String) || value.is_a?(Integer) || value.is_a?(Fixnum)
         r
       end
     end

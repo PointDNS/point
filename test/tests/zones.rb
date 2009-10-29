@@ -11,8 +11,13 @@ class Zones < Test::Unit::TestCase
   
   def test_getting_zones
     zones = Point::Zone.find(:all)
-    assert_equal true, zones.is_a?(Array)
-    assert_equal true, zones.size >= 2
+    assert zones.is_a?(Array)
+    assert zones.size >= 2
+  end
+  
+  def test_zone_applys
+    zone = Point::Zone.find(194)
+    assert zone.apply!
   end
     
 end

@@ -11,6 +11,7 @@ require 'point/request'
 require 'point/errors'
 require 'point/base'
 require 'point/zone'
+require 'point/zone_record'
 
 module Point
   VERSION = '0.0.0'

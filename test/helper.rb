@@ -6,4 +6,3 @@ Point.username = "apitest@pointhq.com"
 Point.apitoken = `git config point.apitestkey`.chomp
 
 puts "Working on '#{Point.site}' as '#{Point.username}'"
-
