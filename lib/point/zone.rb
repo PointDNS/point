@@ -21,6 +21,11 @@ module Point
     end
     
     def requires_update?
+      # Zone has never been updated
+      return true unless self.last_updated_on_server_at
+      # Zone has never been saved - this should never return
+      return true unless self.updated_at
+      # Compare the timestamps
       Time.parse(self.updated_at) > Time.parse(self.last_updated_on_server_at)
     end
   end
