@@ -70,11 +70,13 @@ Various usage examples:
     record.zone            #=> <Point::Zone:...../>
     record.save            #=> true or false
     record.destroy         #=> true or false
-  
+
     new_record = zone.build_record
     new_record.record_type = "A"
     new_record.name = "example"
     new_record.data = "123.123.123.123"
     new_record.save       #=> true | false
     new_record.errors     #=> {'data' => 'is invalid', 'aux' => 'is blank'}
-        
+
+    zone.requires_update? => true if outstanding changes need to be applied
+    zone.apply!           => push changes to DNS servers
