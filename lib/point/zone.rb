@@ -20,5 +20,8 @@ module Point
       z
     end
     
+    def requires_update?
+      Time.parse(self.updated_at) > Time.parse(self.last_updated_on_server_at)
+    end
   end
 end

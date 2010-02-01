@@ -3,6 +3,7 @@
 require 'json'
 require 'uri'
 require 'net/http'
+require 'time'
 
 ## PointHQ Ruby API Client
 ## This is a ruby API client for the Point DNS hosting service.
