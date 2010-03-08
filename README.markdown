@@ -7,7 +7,7 @@ services offered on Point see [the website](http://pointhq.com)
 
 Install the Gem:
 
-    [sudo] gem install point --source=http://gemcutter.org
+    [sudo] gem install point
 
 To access your PointHQ account, you'll need to define your username & API token. The API token
 can be found in your profile page (click on your name in the top right of the web interface).
