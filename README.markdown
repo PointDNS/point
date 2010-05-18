@@ -30,7 +30,6 @@ The available attributes on the zones model are:
 * `additional_slaves` - any additional slave servers you have configured
 * `group` - the group this zone belongs to
 * `user_id` - the ID of the user who created it (this will be you)
-* `last_updated_on_server` - the last time this record was applied to go live
 * `serial` - the current serial number for the zone
 
 Various usage examples:
@@ -77,6 +76,3 @@ Various usage examples:
     new_record.data = "123.123.123.123"
     new_record.save       #=> true | false
     new_record.errors     #=> {'data' => 'is invalid', 'aux' => 'is blank'}
-
-    zone.requires_update? => true if outstanding changes need to be applied
-    zone.apply!           => push changes to DNS servers

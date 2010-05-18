@@ -2,7 +2,8 @@ module Point
   class Zone < Base
     
     def apply!
-      post(:apply)
+      $stderr.puts "Zone information does not need to be applied manually. Point::Zone#apply! method will be deprecated soon."
+      true
     end
     
     def records
@@ -21,12 +22,8 @@ module Point
     end
     
     def requires_update?
-      # Zone has never been updated
-      return true unless self.last_updated_on_server_at
-      # Zone has never been saved - this should never return
-      return true unless self.updated_at
-      # Compare the timestamps
-      Time.parse(self.updated_at) > Time.parse(self.last_updated_on_server_at)
+      $stderr.puts "Zone updated are applied immediately. Point::Zone#requires_update? will be deprecated soon."
+      false
     end
   end
 end

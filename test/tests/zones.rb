@@ -15,9 +15,4 @@ class Zones < Test::Unit::TestCase
     assert zones.size >= 2
   end
   
-  def test_zone_applys
-    zone = Point::Zone.find(194)
-    assert zone.apply!
-  end
-    
 end
