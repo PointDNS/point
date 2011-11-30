@@ -21,7 +21,7 @@ module Point
     ## Hashes will be converted to JSON before being sent to the remote service.
     def make
       uri = URI.parse([Point.site, @path].join('/'))
-      http_request = http_class.new(uri.path)
+      http_request = http_class.new(uri.request_uri)
       http_request.basic_auth(Point.username, Point.apitoken)
       http_request.add_field("Accept", "application/json")
       http_request.add_field("Content-type", "application/json")

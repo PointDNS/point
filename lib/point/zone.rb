@@ -1,5 +1,11 @@
 module Point
   class Zone < Base
+
+    class << self
+      def collection_path(params = {})
+        params[:group] ? "zones?group=#{params[:group]}" : 'zones'
+      end
+    end
     
     def apply!
       $stderr.puts "Zone information does not need to be applied manually. Point::Zone#apply! method will be deprecated soon."

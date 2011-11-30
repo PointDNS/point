@@ -1,5 +1,7 @@
 module Point
   class ZoneRecord < Base
+
+    RECORD_TYPES = ["A", "CNAME", "MX", "TXT", "SRV", "AAAA", 'SSHFP']
     
     class << self
       def collection_path(params = {})
