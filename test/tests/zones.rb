@@ -15,4 +15,10 @@ class Zones < Test::Unit::TestCase
     assert zones.size >= 2
   end
   
-end
+  def test_getting_zonename
+    zone = Point::Zone.find("pointhq-apitest1.com")
+    assert_equal "pointhq-apitest1.com", zone.name
+    assert_equal 3600, zone.ttl
+    assert_equal "", zone.group
+  end
+ende

@@ -25,6 +25,7 @@ module Point
         case type
         when :all then find_all(params)
         when Integer then find_single(type, params)
+        when String then find_all(params).select {|r| r.attributes["name"] == type}
         end
       end
       
