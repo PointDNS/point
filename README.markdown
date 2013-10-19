@@ -37,6 +37,7 @@ Various usage examples:
     require 'point'
     Point::Zone.find(:all) #=> [<Point::Zone:...../>, <Point::Zone:...../>]
     Point::Zone.find(123)  #=> <Point::Zone:...../>
+    Point::Zone.find("existingdomain.com")
     
     z = Point::Zone.new
     z.name = "mycoolzone.com"
