@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'point'
-  s.version = "1.0.2"
+  s.version = "1.0.3"
   s.platform = Gem::Platform::RUBY
   s.summary = "API client for the PointHQ DNS Hosting System"
   
