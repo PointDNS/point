@@ -15,7 +15,7 @@ require 'point/zone'
 require 'point/zone_record'
 
 module Point
-  VERSION = '1.0.0'
+  VERSION = '1.0.2'
   
   class << self
     attr_accessor :username
