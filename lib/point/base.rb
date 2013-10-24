@@ -26,7 +26,7 @@ module Point
         when :all then find_all(params)
         when Integer then find_single(type, params)
         when String then find_all(params).select {|r| r.attributes["name"] == type}.first
-        else raise Point::Error, "Find requires :all, a string or an integer.'
+        else raise Point::Error, "Find requires :all, a string or an integer."
         end
       end
       
