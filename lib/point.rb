@@ -25,4 +25,4 @@ module Point
   
 end
 
-Point.site = "http://pointhq.com"
+Point.site = "https://pointhq.com"
