@@ -28,7 +28,6 @@ module Point
       
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == "https"
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       data = self.data.to_json if self.data.is_a?(Hash) && self.data.respond_to?(:to_json)
       http_result = http.request(http_request, data)
