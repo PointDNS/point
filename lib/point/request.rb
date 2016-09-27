@@ -27,6 +27,8 @@ module Point
       http_request.add_field("Content-type", "application/json")
       
       http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true if uri.scheme == "https"
+
       data = self.data.to_json if self.data.is_a?(Hash) && self.data.respond_to?(:to_json)
       http_result = http.request(http_request, data)
       @output = http_result.body
