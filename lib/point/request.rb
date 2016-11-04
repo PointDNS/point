@@ -40,6 +40,8 @@ module Point
         raise Point::Errors::AccessDenied, "Access Denied for '#{Point.username}'"
       when Net::HTTPNotFound
         raise Point::Errors::CommunicationError, "Not Found at #{uri.to_s}"
+      when Net::HTTPPaymentRequired
+        raise Point::Errors::AccessDenied, JSON.parse(output)['message']
       when Net::HTTPClientError
         false
       else
