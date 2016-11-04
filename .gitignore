@@ -1,2 +1,4 @@
 *.gem
-
+/*.sublime-project
+/*.sublime-workspace
+/.irb-history

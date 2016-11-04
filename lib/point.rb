@@ -16,13 +16,11 @@ require 'point/zone_record'
 
 module Point
   VERSION = '1.0.3'
-  
   class << self
     attr_accessor :username
     attr_accessor :apitoken
     attr_accessor :site
   end
-  
 end
 
-Point.site = "http://pointhq.com"
+Point.site = 'https://api.pointhq.com'
