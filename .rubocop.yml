@@ -1,0 +1,14 @@
+AllCops:
+  TargetRubyVersion: 2.3
+AbcSize:
+  Enabled: false
+ClassAndModuleChildren:
+  Enabled: false
+ClassLength:
+  Max: 250
+CyclomaticComplexity:
+  Max: 10
+MethodLength:
+  Max: 30
+SpaceBeforeFirstArg:
+  Enabled: false
