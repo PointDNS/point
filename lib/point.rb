@@ -22,7 +22,6 @@ module Point
     attr_accessor :apitoken
     attr_accessor :site
   end
-  
 end
 
-Point.site = "http://pointhq.com"
+Point.site = 'https://api.pointhq.com'
